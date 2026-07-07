@@ -27,7 +27,7 @@ export default function DashboardLayout() {
       <aside className={`dash-sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="dash-sidebar-logo">
           <Link to="/dashboard" className="dash-logo-link">
-            <span className="logo-icon">P</span>
+            <img src={import.meta.env.BASE_URL + 'logo.png'} alt="PROMIXX" className="logo-icon" />
             <span className="logo-text">PROMIXX</span>
           </Link>
           <span className="dash-sidebar-label">Espace pro</span>

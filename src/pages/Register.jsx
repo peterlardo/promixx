@@ -30,7 +30,7 @@ export default function Register() {
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-logo">
-            <span className="logo-icon">P</span>
+            <img src={import.meta.env.BASE_URL + 'logo.png'} alt="PROMIXX" className="logo-icon" />
             <span className="logo-text">PROMIXX</span>
           </div>
           <h1>Créer un compte</h1>

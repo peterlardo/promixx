@@ -20,7 +20,7 @@ export default function Header() {
     <header className="header">
       <div className="header-inner">
         <Link to="/" className="header-logo">
-          <span className="logo-icon">P</span>
+          <img src={import.meta.env.BASE_URL + 'logo.png'} alt="PROMIXX" className="logo-icon" />
           <span className="logo-text">PROMIXX</span>
         </Link>
 
