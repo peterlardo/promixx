@@ -18,22 +18,34 @@ const emptyForm = {
 }
 
 export default function DashboardPromotions() {
-  const { products, addProduct } = useApp()
+  const { products, promotions, addPromotion } = useApp()
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState(emptyForm)
 
-  const promoProducts = products.filter(p => p.promoPrice < p.price)
+  const promoProducts = [...products.filter(p => p.promoPrice < p.price), ...promotions]
 
   const filtered = promoProducts.filter(p => {
-    if (search && !p.name.toLowerCase().includes(search.toLowerCase()) && !p.shopName.toLowerCase().includes(search.toLowerCase())) return false
+    const name = p.name || p.title || ''
+    const shop = p.shopName || ''
+    if (search && !name.toLowerCase().includes(search.toLowerCase()) && !shop.toLowerCase().includes(search.toLowerCase())) return false
     return true
   })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert(`Promotion "${form.title}" créée avec succès !`)
+    const product = products.find(p => p.id === Number(form.productId))
+    addPromotion({
+      ...form,
+      productId: Number(form.productId),
+      name: product?.name || form.title,
+      shopName: product?.shopName || '',
+      discount: form.discount || product?.discount || 0,
+      price: product?.price || 0,
+      promoPrice: product?.promoPrice || 0,
+      image: product?.image || 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&h=400&fit=crop',
+    })
     setForm(emptyForm)
     setShowForm(false)
   }
@@ -147,19 +159,24 @@ export default function DashboardPromotions() {
           <div key={p.id} className="dash-promo-card">
             <div className="dash-promo-header">
               <span className="promo-badge" style={{ position: 'static' }}>-{p.discount}%</span>
-              <span className={`badge ${p.available ? 'badge-active' : 'badge-draft'}`}>
-                {p.available ? 'Active' : 'Inactive'}
-              </span>
+              <span className={`badge badge-active`}>Active</span>
             </div>
-            <h4>{p.name}</h4>
-            <p className="text-muted" style={{ fontSize: '0.8rem' }}>{p.shopName}</p>
-            <div className="dash-promo-prices">
-              <span className="promo-original">{formatPrice(p.price)}</span>
-              <span className="promo-price">{formatPrice(p.promoPrice)}</span>
-            </div>
+            <h4>{p.name || p.title}</h4>
+            <p className="text-muted" style={{ fontSize: '0.8rem' }}>{p.shopName || ''}</p>
+            {p.price ? (
+              <div className="dash-promo-prices">
+                <span className="promo-original">{formatPrice(p.price)}</span>
+                <span className="promo-price">{formatPrice(p.promoPrice)}</span>
+              </div>
+            ) : p.budget ? (
+              <div className="dash-promo-prices">
+                <span className="promo-price">Budget: {formatPrice(p.budget)}</span>
+              </div>
+            ) : null}
             <div className="dash-promo-meta">
-              <span>Stock: {p.stock}</span>
-              <span>⭐ {p.rating}</span>
+              {p.startDate && <span>Du {p.startDate}</span>}
+              {p.endDate && <span>au {p.endDate}</span>}
+              {p.type && <span>• {p.type}</span>}
             </div>
             <div className="dash-promo-actions">
               <button className="btn btn-sm btn-secondary">✏️</button>

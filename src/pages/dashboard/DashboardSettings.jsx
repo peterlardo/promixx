@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useApp } from '../../context/AppContext.jsx'
 
 export default function DashboardSettings() {
-  const { currentUser } = useApp()
+  const { currentUser, updateProfile } = useApp()
   const [profile, setProfile] = useState({
     name: currentUser?.name || '',
     email: currentUser?.email || '',
@@ -22,6 +22,7 @@ export default function DashboardSettings() {
 
   const handleSave = (e) => {
     e.preventDefault()
+    updateProfile({ name: profile.name, email: profile.email })
     setSaved(true)
     setTimeout(() => setSaved(false), 3000)
   }

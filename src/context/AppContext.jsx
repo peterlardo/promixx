@@ -15,6 +15,7 @@ export function AppProvider({ children }) {
   const [shops, setShops] = useState(initialShops)
   const [products, setProducts] = useState(initialProducts)
   const [flashDeals] = useState(initialFlashDeals)
+  const [promotions, setPromotions] = useState([])
   const [favorites, setFavorites] = useState([])
   const [cart, setCart] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
@@ -52,6 +53,34 @@ export function AppProvider({ children }) {
 
   const deleteProduct = useCallback((id) => {
     setProducts(prev => prev.filter(p => p.id !== id))
+  }, [])
+
+  const addPromotion = useCallback((promo) => {
+    setPromotions(prev => [...prev, { ...promo, id: Date.now() }])
+    setNotifications(prev => [{
+      id: Date.now() + 1, text: `Promotion "${promo.title}" créée avec succès`,
+      type: 'success', time: 'À l\'instant', read: false,
+    }, ...prev])
+  }, [])
+
+  const addShop = useCallback((shop) => {
+    setShops(prev => [...prev, { ...shop, id: Date.now() }])
+    setNotifications(prev => [{
+      id: Date.now() + 2, text: `Boutique "${shop.name}" ajoutée avec succès`,
+      type: 'success', time: 'À l\'instant', read: false,
+    }, ...prev])
+  }, [])
+
+  const updateShop = useCallback((id, updates) => {
+    setShops(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s))
+  }, [])
+
+  const deleteShop = useCallback((id) => {
+    setShops(prev => prev.filter(s => s.id !== id))
+  }, [])
+
+  const updateProfile = useCallback((data) => {
+    setCurrentUser(prev => prev ? { ...prev, ...data } : prev)
   }, [])
 
   const markNotifRead = useCallback((id) => {
@@ -98,10 +127,11 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
-      shops, products, flashDeals, favorites, cart, currentUser, stats,
+      shops, products, flashDeals, promotions, favorites, cart, currentUser, stats,
       notifications, messages,
       toggleFavorite, isFavorite, addToCart, removeFromCart, setCurrentUser,
       addProduct, updateProduct, deleteProduct,
+      addPromotion, addShop, updateShop, deleteShop, updateProfile,
       markNotifRead, markMsgRead,
     }}>
       {children}
