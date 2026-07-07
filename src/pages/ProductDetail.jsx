@@ -80,14 +80,16 @@ export default function ProductDetail() {
           <div className="promo-grid">
             {similar.map(p => (
               <Link key={p.id} to={`/products/${p.id}`} className="promo-card">
-                <span className="promo-badge">-{p.discount}%</span>
-                <img src={p.image} alt={p.name} />
+                <div className="promo-img-wrapper">
+                  <img src={p.image} alt={p.name} />
+                  <span className="promo-badge">−{p.discount}%</span>
+                </div>
                 <div className="promo-info">
+                  <p className="promo-brand">{p.brand} · {p.category}</p>
                   <h4>{p.name}</h4>
-                  <p className="promo-shop">{p.shopName}</p>
                   <div className="promo-prices">
-                    <span className="promo-original">{formatPrice(p.price)}</span>
                     <span className="promo-price">{formatPrice(p.promoPrice)}</span>
+                    <span className="promo-original">{formatPrice(p.price)}</span>
                   </div>
                 </div>
               </Link>

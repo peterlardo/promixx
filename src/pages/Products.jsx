@@ -17,7 +17,6 @@ export default function Products() {
 
   const filtered = useMemo(() => {
     let result = [...products]
-
     if (search) {
       const q = search.toLowerCase()
       result = result.filter(p =>
@@ -32,14 +31,12 @@ export default function Products() {
     if (cityFilter) {
       result = result.filter(p => p.shopCity === cityFilter)
     }
-
     switch (sortBy) {
       case 'discount': result.sort((a, b) => b.discount - a.discount); break
       case 'price-asc': result.sort((a, b) => a.promoPrice - b.promoPrice); break
       case 'price-desc': result.sort((a, b) => b.promoPrice - a.promoPrice); break
       case 'rating': result.sort((a, b) => b.rating - a.rating); break
     }
-
     return result
   }, [products, search, categoryFilter, cityFilter, sortBy])
 
@@ -53,12 +50,8 @@ export default function Products() {
       </div>
 
       <div className="filter-bar">
-        <input
-          type="text"
-          placeholder="Rechercher un produit..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
+        <input type="text" placeholder="Rechercher un produit..." value={search}
+          onChange={e => setSearch(e.target.value)} />
         <select value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)}>
           <option value="">Toutes les catégories</option>
           {categories.map(c => <option key={c.id} value={c.name}>{c.icon} {c.name}</option>)}
@@ -76,21 +69,24 @@ export default function Products() {
         </select>
       </div>
 
-      <div className="promo-grid">
+      <div className="promo-grid" style={{ padding: '0 32px 64px', maxWidth: 1280, margin: '0 auto' }}>
         {filtered.map(product => (
           <Link key={product.id} to={`/products/${product.id}`} className="promo-card">
-            <span className="promo-badge">-{product.discount}%</span>
-            <img src={product.image} alt={product.name} />
+            <div className="promo-img-wrapper">
+              <img src={product.image} alt={product.name} />
+              <span className="promo-badge">−{product.discount}%</span>
+              {product.discount >= 30 && <span className="promo-flash-badge">Flash</span>}
+            </div>
             <div className="promo-info">
+              <p className="promo-brand">{product.brand} · {product.category}</p>
               <h4>{product.name}</h4>
-              <p className="promo-shop">{product.shopName}</p>
               <div className="promo-prices">
-                <span className="promo-original">{formatPrice(product.price)}</span>
                 <span className="promo-price">{formatPrice(product.promoPrice)}</span>
+                <span className="promo-original">{formatPrice(product.price)}</span>
               </div>
-              <div className="promo-meta">
-                <span>⭐ {product.rating}</span>
-                <span>📍 {product.shopCity}</span>
+              <div className="promo-footer">
+                <span className="promo-shop">📍 {product.shopName}</span>
+                <span className="promo-distance">⭐ {product.rating}</span>
               </div>
             </div>
           </Link>

@@ -10,45 +10,45 @@ export default function Footer() {
               <span className="logo-icon">P</span>
               <span className="logo-text">PROMIXX</span>
             </div>
-            <p>Toutes les promotions au même endroit. Découvrez les meilleures offres près de chez vous au Congo.</p>
-            <div className="footer-social">
-              <span>📘</span>
-              <span>📷</span>
-              <span>🐦</span>
-              <span>▶️</span>
+            <p className="footer-tagline">La qualité au petit prix</p>
+            <p>La plateforme n°1 des promotions commerciales en République du Congo. Découvrez chaque jour les meilleures offres des commerces près de chez vous.</p>
+            <div className="footer-newsletter">
+              <input type="email" placeholder="S'abonner à la newsletter" />
+              <button className="footer-sub-btn">→</button>
             </div>
           </div>
           <div className="footer-col">
-            <h4>Plateforme</h4>
-            <Link to="/shops">Boutiques</Link>
-            <Link to="/products">Promotions</Link>
+            <h4>Découvrir</h4>
+            <Link to="/">Promotions du jour</Link>
+            <Link to="/">Offres flash</Link>
+            <Link to="/">Grandes enseignes</Link>
+            <Link to="/shops">Boutiques populaires</Link>
             <Link to="/">Catégories</Link>
-            <Link to="/">Offres Flash</Link>
           </div>
           <div className="footer-col">
             <h4>Commerçants</h4>
-            <Link to="/register">Créer un compte</Link>
-            <Link to="/dashboard">Espace Pro</Link>
-            <Link to="/">Publicité</Link>
-            <Link to="/">Abonnements</Link>
+            <Link to="/register">Ouvrir une boutique</Link>
+            <Link to="/">Tarifs & abonnements</Link>
+            <Link to="/">Publicité sponsorisée</Link>
+            <Link to="/">Guide vendeur</Link>
+            <Link to="/">Centre d'aide</Link>
           </div>
           <div className="footer-col">
-            <h4>À propos</h4>
-            <Link to="/">Qui sommes-nous</Link>
+            <h4>PROMIXX</h4>
+            <Link to="/">À propos</Link>
+            <Link to="/">Blog</Link>
+            <Link to="/">Presse</Link>
             <Link to="/">Contact</Link>
-            <Link to="/">CGU</Link>
-            <Link to="/">Confidentialité</Link>
-          </div>
-          <div className="footer-col footer-apps">
-            <h4>Téléchargez l'application</h4>
-            <div className="app-badges">
-              <span className="app-badge">📱 App Store</span>
-              <span className="app-badge">📱 Google Play</span>
-            </div>
+            <Link to="/">Recrutement</Link>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2025 PROMIXX. Tous droits réservés. République du Congo.</p>
+          <p>© 2025 PROMIXX — Brazzaville, République du Congo</p>
+          <div className="footer-bottom-links">
+            <Link to="/">Confidentialité</Link>
+            <Link to="/">CGU</Link>
+            <Link to="/">Mentions légales</Link>
+          </div>
         </div>
       </div>
     </footer>

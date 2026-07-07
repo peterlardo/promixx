@@ -77,15 +77,18 @@ export default function ShopDetail() {
               <div className="promo-grid" style={{ marginTop: 16 }}>
                 {shopProducts.map(product => (
                   <Link key={product.id} to={`/products/${product.id}`} className="promo-card">
-                    <span className="promo-badge">-{product.discount}%</span>
-                    <img src={product.image} alt={product.name} />
+                    <div className="promo-img-wrapper">
+                      <img src={product.image} alt={product.name} />
+                      <span className="promo-badge">−{product.discount}%</span>
+                    </div>
                     <div className="promo-info">
+                      <p className="promo-brand">{product.brand} · {product.category}</p>
                       <h4>{product.name}</h4>
                       <div className="promo-prices">
-                        <span className="promo-original">{formatPrice(product.price)}</span>
                         <span className="promo-price">{formatPrice(product.promoPrice)}</span>
+                        <span className="promo-original">{formatPrice(product.price)}</span>
                       </div>
-                      <div className="promo-meta">
+                      <div className="promo-footer">
                         <span>⭐ {product.rating}</span>
                       </div>
                     </div>
